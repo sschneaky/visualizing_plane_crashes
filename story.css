@@ -1,0 +1,16 @@
+
+path:hover {
+	fill-opacity: .97;
+}
+
+h2.title {
+  margin: 30px;
+}
+
+.card-columns {
+  column-count: 1
+}
+
+path.country {
+  color: var(--blue)
+}
