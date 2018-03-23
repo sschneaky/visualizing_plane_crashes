@@ -1,0 +1,9 @@
+title: Visualizing Plane Crashes
+description: 
+  Visualizing Letal Plane Crashes with d3v4
+baseurl: ""
+url: "https://sschneaky.github.io" 
+github_username:  sschneaky
+
+# Build settings
+markdown: kramdown
