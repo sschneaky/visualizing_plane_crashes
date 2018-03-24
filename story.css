@@ -8,9 +8,15 @@ h2.title {
 }
 
 .card-columns {
-  column-count: 1
+  column-count: 1;
 }
 
 path.country {
-  color: var(--blue)
+  color: var(--blue);
+}
+
+path.crash-line {
+  stroke: red;
+  stroke-width: .5;
+  fill:none;
 }

@@ -23,12 +23,21 @@ const SENSATIVITY = .3
 
 let projection = d3.geoOrthographic()
 	.scale(width / 3)
-	.rotate([0, 0])
-	.translate([width / 2, height / 2])
-	.clipAngle(90)
+	.rotate([45, 0])
+	.translate([width / 2, height / 2]) 
+
+let sky_box = d3.geoOrthographic()
+    .scale(projection.scale() * 1.1)
+    .rotate([45, 0])
+    .translate([width / 2, height / 2])
 
 let path = d3.geoPath()
 	.projection(projection)
+
+let crashLines = d3.line()
+	.x(function(d) { return d[0] })
+	.y(function(d) { return d[1] })
+	.curve(d3.curveCardinal);
 
 let rotate = d3.drag()
 	.subject(rotate_projection)
@@ -61,7 +70,7 @@ function ready(error, crashe_data, globe_data){
  	draw_globe(globe_data)
 
  	// draw crashes
- 	// draw_crashes(crashe_data)
+ 	draw_crashes(crashe_data)
 
  	// draw tool_tip
  	// draw filters
@@ -79,9 +88,12 @@ function draw_globe(globe_data){
 		.call(rotate)
 }
 
-// function draw_crashes(crashe_data){
-
-// }
+function draw_crashes(crashe_data){
+	svg.selectAll('g').data(crashe_data)
+		.enter().append('path')
+			.attr('class', 'crash-line')	
+			.attr('d', crash_line)
+}
 
 function rotate_projection() {
 	let r = projection.rotate()
@@ -92,8 +104,16 @@ function rotate_globe(){
 	let r = projection.rotate();
     projection
     	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]]);
+    sky_box
+    	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]]);
+
+    // redraw countries
     svg.selectAll("path.country")
     	.attr("d", path);
+
+    // redraw crash lines
+    svg.selectAll("path.crash-line")
+    	.attr("d", crash_line)
 }
 
 function zoom_globe(){
@@ -101,3 +121,18 @@ function zoom_globe(){
 		.attr("transform", d3.event.transform)
 }
 
+function crash_line(data){
+	// switch crash type 
+	let start = [+data.airport_long, +data.airport_lat]
+	let end = [+data.Longitude, +data.Latitude]
+	let mid = d3.geoInterpolate(start, end)(.5)
+	let test = crashLines([
+		  projection(start)
+		, sky_box(mid)
+		, projection(end)
+	])
+	console.log(test)
+
+	return test
+
+}
