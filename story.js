@@ -34,6 +34,7 @@ let path = d3.geoPath()
 let crashLines = d3.line()
 	.x(function(d) { return d[0] })
 	.y(function(d) { return d[1] })
+	.curve(d3.curveBasis)
 
 
 let rotate = d3.drag()
@@ -88,6 +89,7 @@ function draw_globe(globe_data){
 			.attr('d', path)
 			.attr('fill', black)
 		.call(rotate)
+
 }
 
 function draw_crashes(crashe_data){
