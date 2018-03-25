@@ -4,4 +4,4 @@
 
 ### **Screen Shot**
 
-![screen_shot](/Users/seanschaffer/Documents/College/CompSci/557/assignments/SeanSchaffer_a5/screen_shot.png)
+![screen_shot](screen_shot.png)
