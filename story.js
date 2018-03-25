@@ -34,7 +34,7 @@ let path = d3.geoPath()
 let crashLines = d3.line()
 	.x(function(d) { return d[0] })
 	.y(function(d) { return d[1] })
-	.curve(d3.curveCardinal);
+
 
 let rotate = d3.drag()
 	.subject(rotate_projection)
