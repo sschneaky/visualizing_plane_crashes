@@ -20,7 +20,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
         <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="story.css" </link>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+
+        <link rel="stylesheet" href="story.css">
 
     </head>
     <body>
@@ -42,22 +47,66 @@
                         <div class="card text-white bg-dark" id='legend'>
                             <div class="card-header">Legend</div>
                             <div class="card-body">
-                                <h5 class="card-title">Crashes</h5>
-                                <p> dfajksdhfkjads dksjafhjkdhfajk dshfk dhsajkf djksafhk jdhf sdjkafhjkdhsj kfhadskjhf jkdahsjkf jkfahdsjk fhjdk fhjksda fhjk dsjkf adksjfh kdaf</p>
+                                <h5 class="card-title">About</h5>
+                                <p>This is an interactive visualization for the NTSB dataset</p>
                             </div>
                         </div>
 
                         <div class="card text-white bg-dark" id='legend'>
                             <div class="card-header">Filters</div>
                             <div class="card-body">
-                                <h5 class="card-title">Example</h5>
-                                <p> dfajksdhfkjads dksjafhjkdhfajk dshfk dhsajkf djksafhk jdhf sdjkafhjkdhsj kfhadskjhf jkdahsjkf jkfahdsjk fhjdk fhjksda fhjk dsjkf adksjfh kdaf</p>
-                                <h5 class="card-title">Example</h5>
-                                <p> dfajksdhfkjads dksjafhjkdhfajk dshfk dhsajkf djksafhk jdhf sdjkafhjkdhsj kfhadskjhf jkdahsjkf jkfahdsjk fhjdk fhjksda fhjk dsjkf adksjfh kdaf</p>
+
+<!-- TEXT FILTERS -->
+<form>
+  <div class="row">
+    <div class="form-group col-6 ">
+      <label for="registration-number" class="bmd-label-floating">
+        <small class="text-muted text-white">Registration Number</small>
+      </label>
+      <input type="text" class="form-control text-white" id="registration-number">
+      <span class="bmd-help">Search by Airplane Registration Number.</span>
+    </div>
+    
+    <div class="form-group col-6">
+      <label for="accident-number" class="bmd-label-floating text-white">
+          <small class="text-muted text-white">Accident Number</small>
+      </label>
+      <input type="text" class="form-control text-white" id="accident-number">
+      <span class="bmd-help">Search by NTSB Accident Number.</span>
+    </div> 
+
+<!--     <div class="form-group col-6">
+      <label for="year-picker" class="bmd-label-floating ">
+          <small class="text-muted text-white">Year</small>
+      </label>
+      <input type="text" class="form-control text-white" id="year-picker">
+      <span class="bmd-help">Search by Year.</span>
+    </div> -->
+
+    <div class="form-group col-6">
+      <label for="country-picker" class="bmd-label-floating ">
+          <small class="text-muted text-white">Country</small>
+      </label>
+      <select class="form-control text-white" id="country-picker">
+          <option value="" disabled selected>Select Country</option>
+      </select>
+      <span class="bmd-help">Search by Country.</span>
+    </div>
+
+    <div class="form-group col-6">
+      <label for="description-picker" class="bmd-label-floating ">
+          <small class="text-muted text-white">Description</small>
+      </label>
+      <select class="form-control text-white" id="description-picker">
+          <option value="" disabled selected>Select Description</option>
+      </select>
+      <span class="bmd-help">Search by FARDescription.</span>
+    </div>
+  </div>
+</form> 
+
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
