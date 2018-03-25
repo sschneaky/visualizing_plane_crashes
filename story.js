@@ -16,9 +16,6 @@ const black = '#424242'
 const white = '#f9f9f9'
 
 // SCALES
-
-let body = d3.select(container)
-
 const SENSATIVITY = .3
 
 let projection = d3.geoOrthographic()
@@ -27,7 +24,7 @@ let projection = d3.geoOrthographic()
 	.translate([width / 2, height / 2]) 
 
 let sky_box = d3.geoOrthographic()
-    .scale(projection.scale() * 1.1)
+    .scale(projection.scale() * 1.05)
     .rotate([45, 0])
     .translate([width / 2, height / 2])
 
@@ -52,6 +49,7 @@ let zoom = d3.zoom()
 //////////
 // DRAW //
 //////////
+let body = d3.select(container)
 let svg = body.append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -64,7 +62,6 @@ d3.queue()
     .await(ready)
 
 function ready(error, crashe_data, globe_data){
-	console.log(globe_data)
  	
  	// draw globe
  	draw_globe(globe_data)
@@ -93,6 +90,7 @@ function draw_crashes(crashe_data){
 		.enter().append('path')
 			.attr('class', 'crash-line')	
 			.attr('d', crash_line)
+			.style("opacity", hide_and_filter)
 }
 
 function rotate_projection() {
@@ -114,6 +112,7 @@ function rotate_globe(){
     // redraw crash lines
     svg.selectAll("path.crash-line")
     	.attr("d", crash_line)
+    	.style("opacity", hide_and_filter)
 }
 
 function zoom_globe(){
@@ -123,16 +122,44 @@ function zoom_globe(){
 
 function crash_line(data){
 	// switch crash type 
-	let start = [+data.airport_long, +data.airport_lat]
-	let end = [+data.Longitude, +data.Latitude]
+	let [start, end] = get_start_and_end(data)
 	let mid = d3.geoInterpolate(start, end)(.5)
 	let test = crashLines([
 		  projection(start)
 		, sky_box(mid)
 		, projection(end)
 	])
-	console.log(test)
-
 	return test
 
 }
+
+function get_start_and_end(data){
+	return [
+		  [+data.airport_long, +data.airport_lat]
+		, [+data.Longitude, +data.Latitude]
+	]
+}
+
+function hide_and_filter(data){
+	// if filtered
+	// return 0
+	if filtered(data){
+		return 0;
+	}
+
+	let invert = projection.invert([width/2,height/2])
+    let [start, end] = get_start_and_end(data)
+
+    let start_dis = d3.geoLength({"type": "LineString", "coordinates": [start,invert] })
+    let end_dis = d3.geoLength({"type": "LineString", "coordinates": [end,invert] })
+
+    let furthest_from_back = Math.max(start_dis,end_dis)
+    return furthest_from_back < 1.57 ? 1: 0;
+
+}
+
+function filtered(data){
+	console.log(data)
+	return false
+}
+
