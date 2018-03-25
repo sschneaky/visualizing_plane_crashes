@@ -13,7 +13,7 @@ let height = 600
 
 // COLORS
 const black = '#424242'
-const white = '#f9f9f9'
+const white = '#f5f5f5'
 
 // SCALES
 const SENSATIVITY = .3
@@ -43,13 +43,21 @@ let rotate = d3.drag()
 
 let zoom = d3.zoom()
     .scaleExtent([.75, 10])
-    .on("zoom", zoom_globe);
+    .on("zoom", zoom_globe)
 
 
-let filters = {
+const pickers = {
 	  'FARDescription': new Set()
 	, 'Country': new Set()
 }
+
+const filters = [
+	'FARDescription'
+	,'Country'
+	,'AccidentNumber'
+	,'RegistrationNumber'
+
+]
 
 
 //////////
@@ -76,12 +84,18 @@ function ready(error, crashe_data, globe_data){
  	draw_crashes(crashe_data)
 
  	// draw tool_tip
- 	// draw filters
 }
 
-
 function draw_globe(globe_data){
-	countries = topojson.feature(globe_data, globe_data.objects.countries).features;
+	countries = topojson.feature(globe_data, globe_data.objects.countries).features
+
+	svg.append("path")
+		.datum({type: "Sphere"})
+		.attr("class", "water")
+		.attr("d", path)
+		.call(rotate)
+
+
 	svg.selectAll("path.country")
 		.data(countries)
 		.enter().append("path")
@@ -89,24 +103,27 @@ function draw_globe(globe_data){
 			.attr('d', path)
 			.attr('fill', black)
 		.call(rotate)
-
 }
 
 function draw_crashes(crashe_data){
 	
-	crashe_data.forEach(function(data){
-		Object.keys(filters).forEach(function(f){
-			filters[f].add(data[f])
-		})
-	})
-
-	create_select_filters(filters)
+	// draw pickers
+	generate_pickers(crashe_data)
 
 	svg.selectAll('g').data(crashe_data)
 		.enter().append('path')
 			.attr('class', 'crash-line')	
 			.attr('d', crash_line)
 			.style("opacity", hide_and_filter)
+
+	add_filter_listeners()
+
+}
+
+function reDrawLines(){
+    svg.selectAll("path.crash-line")
+    	.attr("d", crash_line)
+    	.style("opacity", hide_and_filter)
 }
 
 function rotate_projection() {
@@ -115,17 +132,17 @@ function rotate_projection() {
 }
 
 function rotate_globe(){
-	let r = projection.rotate();
+	let r = projection.rotate()
     projection
-    	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]]);
+    	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]])
     sky_box
-    	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]]);
+    	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]])
 
     // redraw countries
     svg.selectAll("path.country")
-    	.attr("d", path);
+    	.attr("d", path)
 
-    reDrawLines();
+    reDrawLines()
 }
 
 function zoom_globe(){
@@ -143,7 +160,6 @@ function crash_line(data){
 		, projection(end)
 	])
 	return test
-
 }
 
 function get_start_and_end(data){
@@ -156,8 +172,10 @@ function get_start_and_end(data){
 function hide_and_filter(data){
 	// if filtered
 	// return 0
-	if (filtered(data)){
-		return 0;
+	let fild = filtered(data)
+	console.log(fild)
+	if (fild){
+		return 0
 	}
 
 	let invert = projection.invert([width/2,height/2])
@@ -167,65 +185,57 @@ function hide_and_filter(data){
     let end_dis = d3.geoLength({"type": "LineString", "coordinates": [end,invert] })
 
     let furthest_from_back = Math.max(start_dis,end_dis)
-    return furthest_from_back < 1.57 ? 1: 0;
-
+    return furthest_from_back < 1.57 ? 1: 0
 }
 
 function filtered(data){
 
-	let reg = document.getElementById('registration-number').value
-	let accident = document.getElementById('accident-number').value
-	let country = document.getElementById('country-picker')
-	country = country.options[country.selectedIndex].value
-	let des = document.getElementById('description-picker')
-	des = des.options[des.selectedIndex].value
+	let reg = document.getElementById('RegistrationNumber').value
+	let accident = document.getElementById('AccidentNumber').value
 
-
-	if (reg && !(has(data.RegistrationNumber, reg))
-		|| accident && !(has(data.AccidentNumber, accident))
-		|| country && !(data.Country === country)
-		|| des && !(data.FARDescription === des)
-	){
+	if (reg && !(has(data.RegistrationNumber, reg)) || accident && !(has(data.AccidentNumber, accident))){
 		return true
 	}
+
+	for (let p of Object.keys(pickers)) {
+		let pic = document.getElementById(p)
+		pic = pic.options[pic.selectedIndex].value
+		if (pic && !(data[p] === pic)) {
+			return true
+		}
+	}
+	
 	return false
 }
 
-
-
-function create_select_filters(filters){
-	let reg = document.getElementById('registration-number')
-	let accident = document.getElementById('accident-number')
-	let country_picker = document.getElementById('country-picker')
-	let description_picker = document.getElementById('description-picker')
-
-	countries = filters['Country']
-	description = filters['FARDescription']
-
-
-	countries.forEach(function(c){
-		if(c){
-		country_picker.appendChild(make_option(c))
-		}
-	})
-
-	description.forEach(function(d){
-		if(d){
-			description_picker.appendChild(make_option(d))
-		}
-	})
-
-	reg.addEventListener('change', reDrawLines)
-	accident.addEventListener('change', reDrawLines)
-	country_picker.addEventListener('change', reDrawLines)
-	description_picker.addEventListener('change', reDrawLines)
-
+function has(s1,s2){
+	return s1 ? ~s1.toLowerCase().indexOf(s2.toLowerCase()) : true
 }
 
-function reDrawLines(){
-    svg.selectAll("path.crash-line")
-    	.attr("d", crash_line)
-    	.style("opacity", hide_and_filter)
+function generate_pickers(crashe_data){
+
+	crashe_data.forEach(function(data){
+		Object.entries(pickers).forEach(function(entry){
+			const [picker, options] = entry;
+			options.add(data[picker])
+		})
+	})
+
+	Object.entries(pickers).forEach(function(entry){
+		const [picker, options] = entry;
+		let pic = document.getElementById(picker)
+		options.forEach(function(o){
+			pic.appendChild(make_option(o))
+		})
+
+	})
+}
+
+function add_filter_listeners(){
+	filters.forEach(function(f){
+		let fil = document.getElementById(f)
+		fil.addEventListener('change', reDrawLines)
+	})
 }
 
 function make_option(c){
@@ -235,7 +245,3 @@ function make_option(c){
 	return option
 }
 
-
-function has(s1,s2){
-	return s1 ? ~s1.toLowerCase().indexOf(s2.toLowerCase()) : true
-}

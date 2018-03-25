@@ -21,3 +21,8 @@ path.crash-line {
   fill:none;
   pointer-events:none;
 }
+
+
+path.water {
+  fill: #f9f9f9;
+}
