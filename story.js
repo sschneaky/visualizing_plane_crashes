@@ -2,14 +2,14 @@
 // SETUP //
 ///////////
 
-let container = document.getElementById("main")
-let legend    = document.getElementById("legend")
+const container = document.getElementById("main")
+const legend    = document.getElementById("legend")
 // let margin = {top: 20, right: 20, bottom: 30, left: 50}
 //     , width = 1000 - margin.left - margin.right
 //     , height = 700 - margin.top - margin.bottom
 
-let width = container.clientWidth
-let height = legend.clientHeight - 11
+const width = container.clientWidth
+const height = legend.clientHeight - 11
 
 // COLORS
 const black = '#424242'
@@ -18,33 +18,35 @@ const white = '#f5f5f5'
 // SCALES
 const SENSATIVITY = .3
 
-let projection = d3.geoOrthographic()
+// GEO
+const projection = d3.geoOrthographic()
 	.scale(width / 3)
 	.rotate([45, 0])
 	.translate([width / 2, height / 2]) 
 
-let sky_box = d3.geoOrthographic()
+const sky_box = d3.geoOrthographic()
     .scale(projection.scale() * 1.2)
     .rotate([45, 0])
     .translate([width / 2, height / 2])
 
-let path = d3.geoPath()
+const path = d3.geoPath()
 	.projection(projection)
 
-let crashLines = d3.line()
+const crashLines = d3.line()
 	.x(function(d) { return d[0] })
 	.y(function(d) { return d[1] })
 	.curve(d3.curveBasis)
 
-let rotate = d3.drag()
+const rotate = d3.drag()
 	.subject(rotate_projection)
 	.on("drag", rotate_globe)
 
-let zoom = d3.zoom()
+const zoom = d3.zoom()
     .scaleExtent([.75, 10])
     .on("zoom", zoom_globe)
 
 
+// LEGEND FILTERS
 const pickers = {
 	  'FARDescription': new Set()
 	, 'Country': new Set()
@@ -66,8 +68,8 @@ const filters = [
 //////////
 // DRAW //
 //////////
-let body = d3.select(container)
-let svg = body.append("svg")
+const body = d3.select(container)
+const svg = body.append("svg")
     .attr("width", width)
     .attr("height", height)
     .attr("Stroke", "#000")
@@ -89,6 +91,12 @@ function ready(error, crashe_data, globe_data){
  	// draw tool_tip
 }
 
+
+///////////////
+// FUNCTIONS //
+///////////////
+
+// DRAW FUNCTIONS
 function draw_globe(globe_data){
 	countries = topojson.feature(globe_data, globe_data.objects.countries).features
 
@@ -129,6 +137,8 @@ function reDrawLines(){
     	.attr("class", hide_and_filter)
 }
 
+
+// GEO FUNCTIONS
 function rotate_projection() {
 	let r = projection.rotate()
 	console.log(d3.event)
@@ -154,6 +164,9 @@ function zoom_globe(){
 		.attr("transform", d3.event.transform)
 }
 
+
+
+// CRASH LINE FUNCTIONS
 function crash_line(data){
 	// switch crash type 
 	let [start, end] = get_start_and_end(data)
@@ -214,6 +227,10 @@ function has(s1,s2){
 	return s1 ? ~s1.toLowerCase().indexOf(s2.toLowerCase()) : true
 }
 
+
+
+
+// LEGEND FUNCTIONS
 function generate_pickers(crashe_data){
 
 	crashe_data.forEach(function(data){
