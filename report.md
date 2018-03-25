@@ -42,9 +42,33 @@
 >
 > ### **Interaction choices**
 >
-> ### **Design choices**
+> ### Drag
+>
+> > ##### By nature we cannot see all of a globe at once so being able to change the viewing angle is very important. I implemented a drag feature so that the viewer can drag the globe to the other side.
+>
+> ### Zoom and Pan
+>
+> > Zoom
+>
+> ### Filters
+>
+> > ##### The article had stated that 2017 in particular was a safe year for commercial aviation and I wanted to be able to visualize a specific situation. With the filters, the viewer actively select scenarios and interact visually with the dataset 
+>
+> ### Click
+>
+> > ##### Selecting a crash line will propagate a box at the bottom left with a link to the NTSB website with the correct eventID. This enable the user to select a crash and find out all the details of the fight and what went wrong.
 >
 > 
+>
+> ### **Design choices**
+>
+> ### Material Design 
+>
+> > I like it
+>
+> ### Color
+>
+> > I wanted to emphasize the crashes by having them be the only colored element 
 
 
 

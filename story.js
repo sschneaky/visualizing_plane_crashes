@@ -23,7 +23,7 @@ const projection = d3.geoOrthographic()
 	.translate([width / 2, height / 2]) 
 
 const sky_box = d3.geoOrthographic()
-    .scale(projection.scale() * 1.2)
+    .scale(projection.scale() * 1.4)
     .rotate(start_rotation)
     .translate([width / 2, height / 2])
 
@@ -120,7 +120,7 @@ function draw_crashes(crashe_data){
 
 	svg.selectAll('g').data(crashe_data)
 		.enter().append('path')	
-			.attr('d', crash_line)
+			.attr("d", crash_line)
 			.attr("class", hide_and_filter)
 			.on('click', updateInfoBox)
 		.call(rotate)
@@ -138,7 +138,6 @@ function reDrawLines(){
 // GEO FUNCTIONS
 function rotate_projection() {
 	let r = projection.rotate()
-	console.log(d3.event)
 	return {x: r[0] / SENSATIVITY, y: -r[1] / SENSATIVITY}
 }
 
