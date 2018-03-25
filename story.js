@@ -3,13 +3,13 @@
 ///////////
 
 let container = document.getElementById("main")
+let legend    = document.getElementById("legend")
 // let margin = {top: 20, right: 20, bottom: 30, left: 50}
 //     , width = 1000 - margin.left - margin.right
 //     , height = 700 - margin.top - margin.bottom
 
 let width = container.clientWidth
-let height = 600
-
+let height = legend.clientHeight - 11
 
 // COLORS
 const black = '#424242'
@@ -36,7 +36,6 @@ let crashLines = d3.line()
 	.y(function(d) { return d[1] })
 	.curve(d3.curveBasis)
 
-
 let rotate = d3.drag()
 	.subject(rotate_projection)
 	.on("drag", rotate_globe)
@@ -49,6 +48,8 @@ let zoom = d3.zoom()
 const pickers = {
 	  'FARDescription': new Set()
 	, 'Country': new Set()
+	, 'EngineType': new Set() 
+	, 'year': new Set()
 }
 
 const filters = [
@@ -56,8 +57,10 @@ const filters = [
 	,'Country'
 	,'AccidentNumber'
 	,'RegistrationNumber'
-
+	,'EngineType'
+	,'year'
 ]
+
 
 
 //////////
@@ -111,23 +114,24 @@ function draw_crashes(crashe_data){
 	generate_pickers(crashe_data)
 
 	svg.selectAll('g').data(crashe_data)
-		.enter().append('path')
-			.attr('class', 'crash-line')	
+		.enter().append('path')	
 			.attr('d', crash_line)
-			.style("opacity", hide_and_filter)
+			.attr("class", hide_and_filter)
+			.on('click', updateInfoBox)
+		.call(rotate)
 
 	add_filter_listeners()
-
 }
 
 function reDrawLines(){
     svg.selectAll("path.crash-line")
     	.attr("d", crash_line)
-    	.style("opacity", hide_and_filter)
+    	.attr("class", hide_and_filter)
 }
 
 function rotate_projection() {
 	let r = projection.rotate()
+	console.log(d3.event)
 	return {x: r[0] / SENSATIVITY, y: -r[1] / SENSATIVITY}
 }
 
@@ -172,10 +176,8 @@ function get_start_and_end(data){
 function hide_and_filter(data){
 	// if filtered
 	// return 0
-	let fild = filtered(data)
-	console.log(fild)
-	if (fild){
-		return 0
+	if (filtered(data)){
+		return 'crash-line hidden'
 	}
 
 	let invert = projection.invert([width/2,height/2])
@@ -185,7 +187,7 @@ function hide_and_filter(data){
     let end_dis = d3.geoLength({"type": "LineString", "coordinates": [end,invert] })
 
     let furthest_from_back = Math.max(start_dis,end_dis)
-    return furthest_from_back < 1.57 ? 1: 0
+    return furthest_from_back < 1.57 ? 'crash-line active' : 'crash-line hidden'
 }
 
 function filtered(data){
@@ -225,9 +227,10 @@ function generate_pickers(crashe_data){
 		const [picker, options] = entry;
 		let pic = document.getElementById(picker)
 		options.forEach(function(o){
-			pic.appendChild(make_option(o))
+			if (o){
+				pic.appendChild(make_option(o))
+			}
 		})
-
 	})
 }
 
@@ -236,6 +239,17 @@ function add_filter_listeners(){
 		let fil = document.getElementById(f)
 		fil.addEventListener('change', reDrawLines)
 	})
+
+	let clear = document.getElementById('clear-filters')
+	clear.addEventListener('click', clearFilters)
+}
+
+function clearFilters(){
+	Object.keys(pickers).forEach(function(p){
+		pic = document.getElementById(p)
+		pic.selectedIndex = 0
+	})
+	reDrawLines()
 }
 
 function make_option(c){
@@ -245,3 +259,20 @@ function make_option(c){
 	return option
 }
 
+function updateInfoBox(data){
+	let info = document.getElementById('info-link')
+	const a = document.createElement('a')
+	a.classList.add('btn');
+	a.classList.add('btn-secondary');
+	a.classList.add('btn-sm');
+	a.classList.add('btn-raised');
+	a.href = `https://www.ntsb.gov/_layouts/ntsb.aviation/brief.aspx?ev_id=${data.EventId}`
+	a.innerText = `Accident Number - ${data.AccidentNumber}`
+	a.target = "_blank"
+
+	while (info.firstChild) {
+	    info.removeChild(info.firstChild);
+	}
+
+	info.appendChild(a)
+}

@@ -43,12 +43,13 @@
                     <div class="card" id='main'></div>
                 </div>
                 <div class="col-5">
-                    <div class="card-columns">
-                        <div class="card text-white bg-dark" id='legend'>
+                    <div class="card-columns" id='legend'>
+                        <div class="card text-white bg-dark">
                             <div class="card-header">Legend</div>
                             <div class="card-body">
-                                <h5 class="card-title">About</h5>
-                                <p>This is an interactive visualization for the NTSB dataset</p>
+                                <p>This is an interactive visualization for the NTSB Aviation Accident Dataset 
+                                <br>
+                                (2018-2000).</p>
                             </div>
                         </div>
 
@@ -83,8 +84,9 @@
       <span class="bmd-help">Search by Year.</span>
     </div> -->
 
+    <!-- Country -->
     <div class="form-group col-6">
-      <label for="country-picker" class="bmd-label-floating ">
+      <label for="Country" class="bmd-label-floating ">
           <small class="text-muted text-white">Country</small>
       </label>
       <select class="form-control text-white" id="Country">
@@ -93,8 +95,9 @@
       <span class="bmd-help">Search by Country.</span>
     </div>
 
+    <!-- Desciption -->
     <div class="form-group col-6">
-      <label for="description-picker" class="bmd-label-floating ">
+      <label for="FARDescription" class="bmd-label-floating ">
           <small class="text-muted text-white">Description</small>
       </label>
       <select class="form-control text-white" id="FARDescription">
@@ -102,11 +105,48 @@
       </select>
       <span class="bmd-help">Search by FARDescription.</span>
     </div>
+
+    <!-- EngineType -->
+    <div class="form-group col-6">
+      <label for="EngineType" class="bmd-label-floating ">
+          <small class="text-muted text-white">Engine Type</small>
+      </label>
+      <select class="form-control text-white" id="EngineType">
+          <option value="" disabled selected>Select Engine Type</option>
+      </select>
+      <span class="bmd-help">Search by EngineType.</span>
+    </div>
+
+    <!-- year -->
+    <div class="form-group col-6">
+      <label for="year" class="bmd-label-floating ">
+          <small class="text-muted text-white">Year</small>
+      </label>
+      <select class="form-control text-white" id="year">
+          <option value="" disabled selected>Select Year</option>
+      </select>
+      <span class="bmd-help">Search by Year.</span>
+    </div>
   </div>
+
+  <button type="button" class="btn btn-raised btn-secondary btn-sm" id='clear-filters'>Clear</button>
+
+
 </form> 
 
                             </div>
                         </div>
+
+                        <div class="card text-white bg-dark" id='info'>
+                            <div class="card-header">Link</div>
+                            <div class="card-body" id="info-link">
+                                <button class="btn btn-secondary btn-raised btn-sm disabled">
+                                    Accident Number - (Select Crash on Globe)
+                                </button>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

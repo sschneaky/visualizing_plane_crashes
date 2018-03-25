@@ -18,11 +18,19 @@ path.country {
 path.crash-line {
   stroke: red;
   stroke-width: .5;
-  fill:none;
-  pointer-events:none;
+  fill: none;
 }
 
+path.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+path.crash-line:hover {
+  stroke-width: 3; 
+}
 
 path.water {
   fill: #f9f9f9;
 }
+
