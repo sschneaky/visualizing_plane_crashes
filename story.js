@@ -11,22 +11,20 @@ const legend    = document.getElementById("legend")
 const width = container.clientWidth
 const height = legend.clientHeight - 11
 
-// COLORS
-const black = '#424242'
-const white = '#f5f5f5'
 
 // SCALES
 const SENSATIVITY = .3
 
 // GEO
+const start_rotation = [45, -25]
 const projection = d3.geoOrthographic()
 	.scale(width / 3)
-	.rotate([45, 0])
+	.rotate(start_rotation)
 	.translate([width / 2, height / 2]) 
 
 const sky_box = d3.geoOrthographic()
     .scale(projection.scale() * 1.2)
-    .rotate([45, 0])
+    .rotate(start_rotation)
     .translate([width / 2, height / 2])
 
 const path = d3.geoPath()
@@ -112,7 +110,6 @@ function draw_globe(globe_data){
 		.enter().append("path")
 			.attr('class', "country")
 			.attr('d', path)
-			.attr('fill', black)
 		.call(rotate)
 }
 

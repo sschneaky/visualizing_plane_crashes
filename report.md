@@ -1,0 +1,51 @@
+# **Assignment 5: Storytelling Visualization**
+
+##### Sean Schaffer
+
+------
+
+## News Article 
+
+### [*2017 safest year on record for commercial passenger air travel: groups*](https://www.reuters.com/article/us-aviation-safety/2017-safest-year-on-record-for-commercial-passenger-air-travel-groups-idUSKBN1EQ17L)
+
+> ##### A news article from Reuters explaining how 2017 was "the safest year on record for commercial air travel" explaining that "Airlines recorded zero accident deaths in commercial passenger jets".
+
+## DataSet 
+
+### [Aviation Data and Documentation from the NTSB Accident Database System](https://catalog.data.gov/dataset/aviation-data-and-documentation-from-the-ntsb-accident-database-system)
+
+> ##### Dataset with detailed information on plane crashes by the National Transportation Safety Board in XML format.
+>
+> ##### Converted to JSON with the python script `convert_to_json.py`
+>
+> ##### Used Jupyter Lab to Filter and Clean Dataset
+>
+> - ###### Filtered non-letal crashes
+>
+> - ###### Filtered incomplete and missing data
+>
+> - ###### Filtered data before 2000's
+>
+> - ###### Added in Airport Latitude and Longitude with `global_airports.csv` [dataset](https://old.datahub.io/dataset/global-airports)
+
+## Visualization 
+
+### [Fatal Plane Crashes Visualized](https://sschneaky.github.io/visualizing_plane_crashes/story.html)
+
+> ### Visualization choices
+>
+> - ​
+>
+> dsf
+
+
+
+## Extra Credit
+
+> - ##### Implemented Scroll Zooming 
+>
+> - ##### Formatted report using Markdown
+
+## 
+
+## 

@@ -12,7 +12,7 @@ h2.title {
 }
 
 path.country {
-  color: var(--blue);
+  fill: #424242;
 }
 
 path.crash-line {
