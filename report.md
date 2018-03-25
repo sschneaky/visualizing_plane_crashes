@@ -1,4 +1,4 @@
-# **Assignment 5: Storytelling Visualization**
+# **Storytelling Visualization**
 
 ##### Sean Schaffer
 
@@ -32,11 +32,19 @@
 
 ### [Fatal Plane Crashes Visualized](https://sschneaky.github.io/visualizing_plane_crashes/story.html)
 
-> ### Visualization choices
+> ### **Visualization choices**
 >
-> - ​
+> #### 3D Globe
 >
-> dsf
+> > ##### I chose a `d3.geoOrthographic()` projection to represent the world as a globe so that the nature of a plane flight could be shown in a more accurate representation. I also used a sky\_box technique and drew the midpoint of the flight on the skybox, so that a 3D effect of the flight could be seen. 
+>
+> ### 
+>
+> ### **Interaction choices**
+>
+> ### **Design choices**
+>
+> 
 
 
 
