@@ -143,7 +143,7 @@ function get_start_and_end(data){
 function hide_and_filter(data){
 	// if filtered
 	// return 0
-	if filtered(data){
+	if (filtered(data)){
 		return 0;
 	}
 
