@@ -52,7 +52,9 @@
 >
 > ### Filters
 >
-> > ##### The article had stated that 2017 in particular was a safe year for commercial aviation and I wanted to be able to visualize a specific situation. With the filters, the viewer actively select scenarios and interact visually with the dataset 
+> > ##### The article had stated that 2017 in particular was a safe year for commercial aviation and I wanted to be able to visualize a specific situation. With the filters, the viewer actively select scenarios and interact visually with the dataset. 
+> >
+> > ##### The Article discusses United States Commercial Jets in 2017, and if we use all of those filters in 2017, we can see that there are no crashes on the map.
 >
 > ### Click
 >
@@ -64,19 +66,19 @@
 >
 > ### Material Design 
 >
-> > I like it
+> > ##### I like it.
 >
 > ### Color
 >
-> > I wanted to emphasize the crashes by having them be the only colored element 
+> > ##### I wanted to emphasize the crashes by having them be the only colored element 
 
 
 
 ## Extra Credit
 
-> - ##### Implemented Scroll Zooming 
+> - ##### Implemented Scroll Zooming on the Globe  
 >
-> - ##### Formatted report using Markdown
+> - ##### Formatted report using Markdown and Custom Styling
 
 ## 
 

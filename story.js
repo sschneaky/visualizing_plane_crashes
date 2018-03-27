@@ -137,12 +137,12 @@ function reDrawLines(){
 
 // GEO FUNCTIONS
 function rotate_projection() {
-	let r = projection.rotate()
+	const r = projection.rotate()
 	return {x: r[0] / SENSATIVITY, y: -r[1] / SENSATIVITY}
 }
 
 function rotate_globe(){
-	let r = projection.rotate()
+	const r = projection.rotate()
     projection
     	.rotate([d3.event.x * SENSATIVITY, -d3.event.y * SENSATIVITY, r[2]])
     sky_box
@@ -165,9 +165,9 @@ function zoom_globe(){
 // CRASH LINE FUNCTIONS
 function crash_line(data){
 	// switch crash type 
-	let [start, end] = get_start_and_end(data)
-	let mid = d3.geoInterpolate(start, end)(.5)
-	let test = crashLines([
+	const [start, end] = get_start_and_end(data)
+	const mid = d3.geoInterpolate(start, end)(.5)
+	const test = crashLines([
 		  projection(start)
 		, sky_box(mid)
 		, projection(end)
@@ -189,20 +189,20 @@ function hide_and_filter(data){
 		return 'crash-line hidden'
 	}
 
-	let invert = projection.invert([width/2,height/2])
-    let [start, end] = get_start_and_end(data)
+	const invert = projection.invert([width/2,height/2])
+    const [start, end] = get_start_and_end(data)
 
-    let start_dis = d3.geoLength({"type": "LineString", "coordinates": [start,invert] })
-    let end_dis = d3.geoLength({"type": "LineString", "coordinates": [end,invert] })
+    const start_dis = d3.geoLength({"type": "LineString", "coordinates": [start,invert] })
+    const end_dis = d3.geoLength({"type": "LineString", "coordinates": [end,invert] })
 
-    let furthest_from_back = Math.max(start_dis,end_dis)
+    const furthest_from_back = Math.max(start_dis,end_dis)
     return furthest_from_back < 1.57 ? 'crash-line active' : 'crash-line hidden'
 }
 
 function filtered(data){
 
-	let reg = document.getElementById('RegistrationNumber').value
-	let accident = document.getElementById('AccidentNumber').value
+	const reg = document.getElementById('RegistrationNumber').value
+	const accident = document.getElementById('AccidentNumber').value
 
 	if (reg && !(has(data.RegistrationNumber, reg)) || accident && !(has(data.AccidentNumber, accident))){
 		return true
@@ -231,13 +231,13 @@ function generate_pickers(crashe_data){
 
 	crashe_data.forEach(function(data){
 		Object.entries(pickers).forEach(function(entry){
-			const [picker, options] = entry;
+			let [picker, options] = entry;
 			options.add(data[picker])
 		})
 	})
 
 	Object.entries(pickers).forEach(function(entry){
-		const [picker, options] = entry;
+		let [picker, options] = entry;
 		let pic = document.getElementById(picker)
 		options.forEach(function(o){
 			if (o){
@@ -253,27 +253,27 @@ function add_filter_listeners(){
 		fil.addEventListener('change', reDrawLines)
 	})
 
-	let clear = document.getElementById('clear-filters')
+	const clear = document.getElementById('clear-filters')
 	clear.addEventListener('click', clearFilters)
 }
 
 function clearFilters(){
 	Object.keys(pickers).forEach(function(p){
-		pic = document.getElementById(p)
+		let pic = document.getElementById(p)
 		pic.selectedIndex = 0
 	})
 	reDrawLines()
 }
 
 function make_option(c){
-	let option = document.createElement('option')
+	const option = document.createElement('option')
 	option.value = c
 	option.innerText = c
 	return option
 }
 
 function updateInfoBox(data){
-	let info = document.getElementById('info-link')
+	const info = document.getElementById('info-link')
 	const a = document.createElement('a')
 	a.classList.add('btn');
 	a.classList.add('btn-secondary');
