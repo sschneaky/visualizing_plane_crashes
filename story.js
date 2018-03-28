@@ -275,10 +275,7 @@ function updateInfoBox(data){
     removeChilren(info)
 
     const a = document.createElement('a')
-    a.classList.add('btn')
-    a.classList.add('btn-secondary')
-    a.classList.add('btn-sm')
-    a.classList.add('btn-raised')
+    a.classList.add('btn', 'btn-secondary', 'btn-sm', 'btn-raised')
     a.href = `https://www.ntsb.gov/_layouts/ntsb.aviation/brief.aspx?ev_id=${data.EventId}`
     a.innerText = `Accident Number - ${data.AccidentNumber}`
     a.target = "_blank"
