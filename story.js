@@ -53,12 +53,8 @@ const pickers = {
 }
 
 const filters = [
-    'FARDescription'
-    ,'Country'
-    ,'AccidentNumber'
+     'AccidentNumber'
     ,'RegistrationNumber'
-    ,'EngineType'
-    ,'year'
 ]
 
 
@@ -246,20 +242,17 @@ function generate_pickers(crashe_data){
 }
 
 function add_filter_listeners(){
-    filters.forEach(f => {
-        let fil = _(f)
-        fil.addEventListener('change', reDrawLines)
-    })
+    Object.keys(pickers).forEach(p => { _(p).addEventListener('change', reDrawLines)})
+    filters.forEach(f => { _(f).addEventListener('change', reDrawLines)})
 
     const clear = _('clear-filters')
     clear.addEventListener('click', clearFilters)
 }
 
 function clearFilters(){
-    Object.keys(pickers).forEach(p => {
-        let pic = _(p)
-        pic.selectedIndex = 0
-    })
+    Object.keys(pickers).forEach(p => { _(p).selectedIndex = 0 })
+    filters.forEach(f => { _(f).value = '' }) 
+
     reDrawLines()
 }
 

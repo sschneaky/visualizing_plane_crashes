@@ -1,164 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Fatal Plane Crashes</title>
+	<head>
+		<meta charset="utf-8">
+		<title>Fatal Plane Crashes</title>
 
-        <link rel="icon" href="airplane.png" type="image/x-icon">
+		<link rel="icon" href="airplane.png" type="image/x-icon">
 
-        <!-- D3 -->
-        <script src="https://d3js.org/d3.v4.js"></script>
-        <script src="https://d3js.org/topojson.v2.min.js"></script>
-        <script src="https://d3js.org/d3-queue.v3.min.js"></script>
-        
-        
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+		<!-- D3 -->
+		<script src="https://d3js.org/d3.v4.js"></script>
+		<script src="https://d3js.org/topojson.v2.min.js"></script>
+		<script src="https://d3js.org/d3-queue.v3.min.js"></script>
+		
+		
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-        <!-- Bootstrap Material -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+		<!-- Bootstrap Material -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 
+		<link rel="stylesheet" href="story.css">
+	</head>
 
-        <link rel="stylesheet" href="story.css">
+	<body>
+		<br>
+		<div class="container-fluid ">
+			<div class="card">
 
-    </head>
-    <body>
-        <br>
-        <div class="container-fluid ">
-        <div class="card">
-            <div class="card-header title">
-                <br>
-                <h1 class="card-title">
-                    Fatal Plane Crashes Visualized
-                </h1>
-            </div>
-            <div class="card-body row">
-                <div class="col-7">
-                    <div class="card" id='main'></div>
-                </div>
-                <div class="col-5">
-                    <div class="card-columns" id='legend'>
-                        <div class="card text-white bg-dark">
-                            <div class="card-header">Legend</div>
-                            <div class="card-body">
-                                <p>This is an interactive visualization for the NTSB Aviation Accident Dataset</p>
-                            </div>
-                        </div>
+				<!-- HEADER -->
+				<div class="card-header title">
+					<br>
+					<h1 class="card-title">
+							Fatal Plane Crashes Visualized
+					</h1>
+				</div>
 
-                        <div class="card text-white bg-dark" id='legend'>
-                            <div class="card-header">Filters</div>
-                            <div class="card-body">
+				<!-- BODY -->
+				<div class="card-body row">
+					<div class="col-7">
+							<div class="card" id='main'></div>
+					</div>
+					<div class="col-5">
 
-<!-- TEXT FILTERS -->
-<form>
-  <div class="row">
-    <div class="form-group col-6 ">
-      <label for="registration-number" class="bmd-label-floating">
-        <small class="text-muted text-white">Registration Number</small>
-      </label>
-      <input type="text" class="form-control text-white" id="RegistrationNumber">
-      <span class="bmd-help">Search by Airplane Registration Number.</span>
-    </div>
-    
-    <div class="form-group col-6">
-      <label for="accident-number" class="bmd-label-floating text-white">
-          <small class="text-muted text-white">Accident Number</small>
-      </label>
-      <input type="text" class="form-control text-white" id="AccidentNumber">
-      <span class="bmd-help">Search by NTSB Accident Number.</span>
-    </div> 
+						<!-- Card Columns -->
+						<div class="card-columns" id='legend'>
 
-<!--     <div class="form-group col-6">
-      <label for="year-picker" class="bmd-label-floating ">
-          <small class="text-muted text-white">Year</small>
-      </label>
-      <input type="text" class="form-control text-white" id="year-picker">
-      <span class="bmd-help">Search by Year.</span>
-    </div> -->
+							<!-- Legend and Info -->
+							<div class="card text-white bg-dark">
+								<div class="card-header">Legend</div>
+								<div class="card-body">
+									<p>This is an interactive visualization for the NTSB Aviation Accident Dataset</p>
+								</div>
+							</div>
 
-    <!-- Country -->
-    <div class="form-group col-6">
-      <label for="Country" class="bmd-label-floating ">
-          <small class="text-muted text-white">Country</small>
-      </label>
-      <select class="form-control text-white" id="Country">
-          <option value="" disabled selected>Select Country</option>
-      </select>
-      <span class="bmd-help">Search by Country.</span>
-    </div>
+							<!-- Filters -->
+							<div class="card text-white bg-dark" id='legend'>
+								<div class="card-header">Filters</div>
+								<div class="card-body">
 
-    <!-- Desciption -->
-    <div class="form-group col-6">
-      <label for="FARDescription" class="bmd-label-floating ">
-          <small class="text-muted text-white">Description</small>
-      </label>
-      <select class="form-control text-white" id="FARDescription">
-          <option value="" disabled selected>Select Description</option>
-      </select>
-      <span class="bmd-help">Search by FARDescription.</span>
-    </div>
+									<!-- TEXT FILTERS -->
+									<form>
+										<div class="row">
 
-    <!-- EngineType -->
-    <div class="form-group col-6">
-      <label for="EngineType" class="bmd-label-floating ">
-          <small class="text-muted text-white">Engine Type</small>
-      </label>
-      <select class="form-control text-white" id="EngineType">
-          <option value="" disabled selected>Select Engine Type</option>
-      </select>
-      <span class="bmd-help">Search by EngineType.</span>
-    </div>
+											<!-- Registration Number -->
+											<div class="form-group col-6 ">
+												<label for="registration-number" class="bmd-label-floating">
+													<small class="text-muted text-white">Registration Number</small>
+												</label>
+												<input type="text" class="form-control text-white" id="RegistrationNumber">
+												<span class="bmd-help">Search by Airplane Registration Number.</span>
+											</div>
+											
+											<!-- Accident Number -->
+											<div class="form-group col-6">
+												<label for="accident-number" class="bmd-label-floating text-white">
+														<small class="text-muted text-white">Accident Number</small>
+												</label>
+												<input type="text" class="form-control text-white" id="AccidentNumber">
+												<span class="bmd-help">Search by NTSB Accident Number.</span>
+											</div> 
 
-    <!-- year -->
-    <div class="form-group col-6">
-      <label for="year" class="bmd-label-floating ">
-          <small class="text-muted text-white">Year</small>
-      </label>
-      <select class="form-control text-white" id="year">
-          <option value="" disabled selected>Select Year</option>
-      </select>
-      <span class="bmd-help">Search by Year.</span>
-    </div>
-  </div>
+											<!-- Country -->
+											<div class="form-group col-6">
+												<label for="Country" class="bmd-label-floating ">
+														<small class="text-muted text-white">Country</small>
+												</label>
+												<select class="form-control text-white" id="Country">
+														<option value="" disabled selected>Select Country</option>
+												</select>
+												<span class="bmd-help">Search by Country.</span>
+											</div>
 
-  <button type="button" class="btn btn-raised btn-secondary btn-sm" id='clear-filters'>Clear</button>
+											<!-- Desciption -->
+											<div class="form-group col-6">
+												<label for="FARDescription" class="bmd-label-floating ">
+														<small class="text-muted text-white">Description</small>
+												</label>
+												<select class="form-control text-white" id="FARDescription">
+														<option value="" disabled selected>Select Description</option>
+												</select>
+												<span class="bmd-help">Search by FARDescription.</span>
+											</div>
 
+											<!-- EngineType -->
+											<div class="form-group col-6">
+												<label for="EngineType" class="bmd-label-floating ">
+														<small class="text-muted text-white">Engine Type</small>
+												</label>
+												<select class="form-control text-white" id="EngineType">
+														<option value="" disabled selected>Select Engine Type</option>
+												</select>
+												<span class="bmd-help">Search by EngineType.</span>
+											</div>
 
-</form> 
+											<!-- Year -->
+											<div class="form-group col-6">
+												<label for="year" class="bmd-label-floating ">
+														<small class="text-muted text-white">Year</small>
+												</label>
+												<select class="form-control text-white" id="year">
+														<option value="" disabled selected>Select Year</option>
+												</select>
+												<span class="bmd-help">Search by Year.</span>
+											</div>
+										</div>
 
-                            </div>
-                        </div>
+										<button type="button" class="btn btn-raised btn-secondary btn-sm" id='clear-filters'>Clear</button>
+									</form> 
 
-                        <div class="card text-white bg-dark" id='info'>
-                            <div class="card-header">Link</div>
-                            <div class="card-body" id="info-link">
-                                <button class="btn btn-secondary btn-raised btn-sm disabled">
-                                    Accident Number - (Select Crash on Globe)
-                                </button>
+								</div>
+							</div>
 
-                            </div>
-                        </div>
+							<!-- Link -->
+							<div class="card text-white bg-dark" id='info'>
+								<div class="card-header">Link</div>
+								<div class="card-body" id="info-link">
+									<button class="btn btn-secondary btn-raised btn-sm disabled">
+											Accident Number - (Select Crash on Globe)
+									</button>
+								</div>
+							</div>
 
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <div class="float-right">
-                    <small class="text-muted">Sean Schaffer</small>
-                </div>
-            </div>
-            <script src="story.js" type="text/javascript"></script>
-        </div>
-        </div>
-    <br>
-    </body>
+						</div>
+					</div>
+				</div>
 
+				<!-- FOOTER -->
+				<div class="card-footer ">
+					<div class="float-right">
+						<small class="text-muted">Sean Schaffer</small>
+					</div>
+				</div>
+
+			<script src="story.js" type="text/javascript"></script>
+
+			</div>
+		</div>
+		<br>	
+	</body>
 </html>
