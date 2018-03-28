@@ -16,6 +16,7 @@ const SENSATIVITY = .3
 
 // GEO
 const start_rotation = [45, -25]
+
 const projection = d3.geoOrthographic()
 	.scale(width / 3)
 	.rotate(start_rotation)
@@ -218,9 +219,7 @@ function filtered(data){
 	return false
 }
 
-function has(s1,s2){
-	return s1 ? ~s1.toLowerCase().indexOf(s2.toLowerCase()) : true
-}
+const has = (s1,s2) => { return s1 ? ~s1.toLowerCase().indexOf(s2.toLowerCase()) : true}
 
 
 
