@@ -2,11 +2,10 @@
 // SETUP //
 ///////////
 
-const container = document.getElementById("main")
-const legend    = document.getElementById("legend")
-// let margin = {top: 20, right: 20, bottom: 30, left: 50}
-//     , width = 1000 - margin.left - margin.right
-//     , height = 700 - margin.top - margin.bottom
+const _ = id => { return document.getElementById(id) }
+
+const container = _("main")
+const legend    = _("legend")
 
 const width = container.clientWidth
 const height = legend.clientHeight - 11
@@ -201,15 +200,15 @@ function hide_and_filter(data){
 
 function filtered(data){
 
-	const reg = document.getElementById('RegistrationNumber').value
-	const accident = document.getElementById('AccidentNumber').value
+	const reg = _('RegistrationNumber').value
+	const accident = _('AccidentNumber').value
 
 	if (reg && !(has(data.RegistrationNumber, reg)) || accident && !(has(data.AccidentNumber, accident))){
 		return true
 	}
 
 	for (let p of Object.keys(pickers)) {
-		let pic = document.getElementById(p)
+		let pic = _(p)
 		pic = pic.options[pic.selectedIndex].value
 		if (pic && !(data[p] === pic)) {
 			return true
@@ -229,17 +228,17 @@ function has(s1,s2){
 // LEGEND FUNCTIONS
 function generate_pickers(crashe_data){
 
-	crashe_data.forEach(function(data){
-		Object.entries(pickers).forEach(function(entry){
-			let [picker, options] = entry;
+	crashe_data.forEach(data => {
+		Object.entries(pickers).forEach(entry => {
+			let [picker, options] = entry
 			options.add(data[picker])
 		})
 	})
 
-	Object.entries(pickers).forEach(function(entry){
-		let [picker, options] = entry;
-		let pic = document.getElementById(picker)
-		options.forEach(function(o){
+	Object.entries(pickers).forEach(entry => {
+		let [picker, options] = entry
+		let pic = _(picker)
+		options.forEach(o => {
 			if (o){
 				pic.appendChild(make_option(o))
 			}
@@ -248,18 +247,18 @@ function generate_pickers(crashe_data){
 }
 
 function add_filter_listeners(){
-	filters.forEach(function(f){
-		let fil = document.getElementById(f)
+	filters.forEach(f => {
+		let fil = _(f)
 		fil.addEventListener('change', reDrawLines)
 	})
 
-	const clear = document.getElementById('clear-filters')
+	const clear = _('clear-filters')
 	clear.addEventListener('click', clearFilters)
 }
 
 function clearFilters(){
-	Object.keys(pickers).forEach(function(p){
-		let pic = document.getElementById(p)
+	Object.keys(pickers).forEach(p => {
+		let pic = _(p)
 		pic.selectedIndex = 0
 	})
 	reDrawLines()
@@ -273,19 +272,25 @@ function make_option(c){
 }
 
 function updateInfoBox(data){
-	const info = document.getElementById('info-link')
+	const info = _('info-link')
+	removeChilren(info)
+
 	const a = document.createElement('a')
-	a.classList.add('btn');
-	a.classList.add('btn-secondary');
-	a.classList.add('btn-sm');
-	a.classList.add('btn-raised');
+	a.classList.add('btn')
+	a.classList.add('btn-secondary')
+	a.classList.add('btn-sm')
+	a.classList.add('btn-raised')
 	a.href = `https://www.ntsb.gov/_layouts/ntsb.aviation/brief.aspx?ev_id=${data.EventId}`
 	a.innerText = `Accident Number - ${data.AccidentNumber}`
 	a.target = "_blank"
 
-	while (info.firstChild) {
-	    info.removeChild(info.firstChild);
-	}
-
 	info.appendChild(a)
 }
+
+function removeChilren(elem){
+	while (elem.firstChild){
+		elem.removeChild(elem.firstChild)
+	}
+}
+
+
